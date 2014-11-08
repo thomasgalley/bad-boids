@@ -15,11 +15,11 @@ boids_starting_y_position_range=[300.0,600.0]
 boids_starting_x_velocity_range=[0,10.0]
 boids_starting_y_velocity_range=[-20.0,20.0]
 
-boids_inital_x_positions=[random.uniform(*boids_starting_x_position_range) for x in range(number_of_boids)]
-boids_inital_y_postions=[random.uniform(*boids_starting_y_position_range) for x in range(number_of_boids)]
+boids_initial_x_positions=[random.uniform(*boids_starting_x_position_range) for x in range(number_of_boids)]
+boids_initial_y_positions=[random.uniform(*boids_starting_y_position_range) for x in range(number_of_boids)]
 boid_initial_x_velocities=[random.uniform(*boids_starting_x_velocity_range) for x in range(number_of_boids)]
 boid_initial_y_velocities=[random.uniform(*boids_starting_y_velocity_range) for x in range(number_of_boids)]
-boids=(boids_x,boids_y,boid_x_velocities,boid_y_velocities)
+boids=(boids_initial_x_positions,boids_initial_y_positions,boid_initial_x_velocities,boid_initial_y_velocities)
 
 def update_boids(boids):
 	xs,ys,xvs,yvs=boids
