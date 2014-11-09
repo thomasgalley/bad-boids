@@ -8,6 +8,7 @@ from matplotlib import animation
 import random
 import numpy
 import yaml
+#from Change_in_velocity import velocity_change_x
 
 config=yaml.load(open("config.yml")) 
 
@@ -43,6 +44,11 @@ def change_in_position(position,velocity,time_increment=1):
    new_position=position+velocity*time_increment
    return new_position
 
+#def velocity_change_x(boids,change_magnitude):
+   for boid['xposition'] in boids['xposition']:
+      boids['xvelocity']=boids['xveloctiy']+(boid['xposition']-boids['xposition'])*change_magnitude
+   return boids['xvelocity']
+
 #for boid in boids: 
  #  print boids
 
@@ -57,9 +63,11 @@ def update_boids(boids):
            #boids[i]=(boid['xposition'],boid['yposition'],boid['xvelocity'],boid['yvelocity'])
         # Fly towards the middle
         
+        
+
         for boid in boids:
            for j in range(number_of_boids):
-              boid['xvelocity']=velocity_change(boid['xvelocity'],boid['xposition'],boids['xposition'][j],0.01/number_of_boids)
+              #boid['xvelocity']=velocity_change(boid['xvelocity'],boid['xposition'],boids['xposition'][j],0.01/number_of_boids)
               boid['yvelocity']=velocity_change(boid['yvelocity'],boid['yposition'],boids['yposition'][j],0.01/number_of_boids)
 	
 

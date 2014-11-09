@@ -1,0 +1,5 @@
+
+def velocity_change(boids,change_magnitude):
+   for boid['xposition'] in boids['xposition']:
+      boids['xvelocity']=boids['xveloctiy']+(boid['xposition']-boids['xposition'])*change_magnitude
+   return boids['xvelocity']
