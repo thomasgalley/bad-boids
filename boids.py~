@@ -8,8 +8,8 @@ from matplotlib import animation
 import random
 import numpy
 import yaml
-#from Change_in_velocity import velocity_change_x
-
+from Boid_differences import velocity_change, position_difference_test, change_in_position
+from Boid_flight import fly_to_middle, fly_away_from_boids
 config=yaml.load(open("config.yml")) 
 
 # Deliberately terrible code for teaching purposes
@@ -41,21 +41,11 @@ for i in range(number_of_boids):
 def update_boids(boids):
 	       
         
-
-        for boid in boids:
-           for j in range(number_of_boids):
-              boid['xvelocity']=velocity_change(boid['xvelocity'],boid['xposition'],boids['xposition'][j],0.01/number_of_boids)
-              boid['yvelocity']=velocity_change(boid['yvelocity'],boid['yposition'],boids['yposition'][j],0.01/number_of_boids)
+        fly_to_middle(boids,0.01/number_of_boids,number_of_boids)
 	
 
 
-      
-	#Fly away from nearby boids
-        for boid in boids:
-           for j in range(number_of_boids):
-                        if position_difference_test(boid['xposition'],boids['xposition'][j],boid['yposition'],boids['yposition'][j],100):
-				boid['xvelocity']=velocity_change(boid['xvelocity'],boids['xposition'][j],boid['xposition'],1)
-				boid['yvelocity']=velocity_change(boid['yvelocity'],boids['yposition'][j],boid['yposition'],1)
+        fly_away_from_boids(boids,number_of_boids,1,0.125/number_of_boids)
 	
 			
 
