@@ -9,7 +9,8 @@ import random
 import numpy
 import yaml
 from Boid_differences import velocity_change, position_difference_test, change_in_position
-from Boid_flight import fly_to_middle, fly_away_from_boids
+from Boid_flight import fly_to_middle, fly_away_from_boids, match_speed, move_boids
+
 config=yaml.load(open("config.yml")) 
 
 # Deliberately terrible code for teaching purposes
@@ -43,25 +44,14 @@ def update_boids(boids):
         
         fly_to_middle(boids,0.01/number_of_boids,number_of_boids)
 	
+        fly_away_from_boids(boids,number_of_boids,100,0.125/number_of_boids)
 
-
-        fly_away_from_boids(boids,number_of_boids,1,0.125/number_of_boids)
-	
+        match_speed(boids,number_of_boids,10000,0.125/number_of_boids)
+	 
+        move_boids(boids)
 			
 
-	# Try to match speed with nearby boids
-	for boid in boids:
-		for j in range(number_of_boids):
-			if position_difference_test(boid['xposition'],boids['xposition'][j],boid['yposition'],boids['yposition'][j],10000):
-				boid['xvelocity']=velocity_change(boid['xvelocity'],boid['xvelocity'],boids['xvelocity'][j],0.125/number_of_boids)
-				boid['yvelocity']=velocity_change(boid['yvelocity'],boid['yvelocity'],boids['yvelocity'][j],0.125/number_of_boids)
-
-	# Move according to velocities
-	for boid in boids:
-		boid['xposition']=change_in_position(boid['xposition'],boid['xvelocity'])
-		boid['yposition']=change_in_position(boid['yposition'],boid['yvelocity'])
-
-
+	
 figure=plt.figure()
 axes=plt.axes(xlim=(-500,1500), ylim=(-500,1500))
 
