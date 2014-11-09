@@ -40,7 +40,8 @@ def change_in_position(position,velocity,time_increment=1):
    new_position=position+velocity*time_increment
    return new_position
 
-print boids
+#for boid in boids: 
+ #  print boids
 
 
     
@@ -50,37 +51,37 @@ def update_boids(boids):
         
         #boids= numpy.array((number_of_boids),dtype=[('xposition','f8'),('yposition','f8'),('xvelocity','f8'),('yvelocity','f8')])
         #for i in range(number_of_boids): 
-           #boids[i]=(boids['xposition'][i],boids['yposition'][i],boids['xvelocity'][i],boids['yvelocity'][i])
+           #boids[i]=(boid['xposition'],boid['yposition'],boid['xvelocity'],boid['yvelocity'])
         # Fly towards the middle
         
-        for i in range(number_of_boids):
+        for boid in boids:
            for j in range(number_of_boids):
-              boids['xvelocity'][i]=velocity_change(boids['xvelocity'][i],boids['xposition'][i],boids['xposition'][j],0.01/number_of_boids)
-              boids['yvelocity'][i]=velocity_change(boids['yvelocity'][i],boids['yposition'][i],boids['yposition'][j],0.01/number_of_boids)
+              boid['xvelocity']=velocity_change(boid['xvelocity'],boid['xposition'],boids['xposition'][j],0.01/number_of_boids)
+              boid['yvelocity']=velocity_change(boid['yvelocity'],boid['yposition'],boids['yposition'][j],0.01/number_of_boids)
 	
 
 
       
 	#Fly away from nearby boids
-        for i in range(number_of_boids):
+        for boid in boids:
            for j in range(number_of_boids):
-                        if position_difference_test(boids['xposition'][i],boids['xposition'][j],boids['yposition'][i],boids['yposition'][j],100):
-				boids['xvelocity'][i]=velocity_change(boids['xvelocity'][i],boids['xposition'][j],boids['xposition'][i],1)
-				boids['yvelocity'][i]=velocity_change(boids['yvelocity'][i],boids['yposition'][j],boids['yposition'][i],1)
+                        if position_difference_test(boid['xposition'],boids['xposition'][j],boid['yposition'],boids['yposition'][j],100):
+				boid['xvelocity']=velocity_change(boid['xvelocity'],boids['xposition'][j],boid['xposition'],1)
+				boid['yvelocity']=velocity_change(boid['yvelocity'],boids['yposition'][j],boid['yposition'],1)
 	
 			
 
 	# Try to match speed with nearby boids
-	for i in range(number_of_boids):
+	for boid in boids:
 		for j in range(number_of_boids):
-			if position_difference_test(boids['xposition'][i],boids['xposition'][j],boids['yposition'][i],boids['yposition'][j],10000):
-				boids['xvelocity'][i]=velocity_change(boids['xvelocity'][i],boids['xvelocity'][i],boids['xvelocity'][j],0.125/number_of_boids)
-				boids['yvelocity'][i]=velocity_change(boids['yvelocity'][i],boids['yvelocity'][i],boids['yvelocity'][j],0.125/number_of_boids)
+			if position_difference_test(boid['xposition'],boids['xposition'][j],boid['yposition'],boids['yposition'][j],10000):
+				boid['xvelocity']=velocity_change(boid['xvelocity'],boid['xvelocity'],boids['xvelocity'][j],0.125/number_of_boids)
+				boid['yvelocity']=velocity_change(boid['yvelocity'],boid['yvelocity'],boids['yvelocity'][j],0.125/number_of_boids)
 
 	# Move according to velocities
-	for i in range(number_of_boids):
-		boids['xposition'][i]=change_in_position(boids['xposition'][i],boids['xvelocity'][i])
-		boids['yposition'][i]=change_in_position(boids['yposition'][i],boids['yvelocity'][i])
+	for boid in boids:
+		boid['xposition']=change_in_position(boid['xposition'],boid['xvelocity'])
+		boid['yposition']=change_in_position(boid['yposition'],boid['yvelocity'])
 
 print update_boids(boids)
 figure=plt.figure()
