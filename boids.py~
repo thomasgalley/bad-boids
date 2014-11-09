@@ -7,14 +7,17 @@ from matplotlib import pyplot as plt
 from matplotlib import animation
 import random
 import numpy
+import yaml
+
+config=yaml.load(open("config.yml")) 
 
 # Deliberately terrible code for teaching purposes
 
-number_of_boids=50
-boids_starting_x_position_range=[-450,50.0]
-boids_starting_y_position_range=[300.0,600.0]
-boids_starting_x_velocity_range=[0,10.0]
-boids_starting_y_velocity_range=[-20.0,20.0]
+number_of_boids=config['number_of_boids']
+boids_starting_x_position_range= config['boids_starting_x_position_range']
+boids_starting_y_position_range= config['boids_starting_y_position_range']
+boids_starting_x_velocity_range=config['boids_starting_x_velocity_range=[0,10.0]']
+boids_starting_y_velocity_range=config['boids_starting_y_velocity_range=[-20.0,20.0]']
 
 boids_initial_x_positions=[random.uniform(*boids_starting_x_position_range) for x in range(number_of_boids)]
 boids_initial_y_positions=[random.uniform(*boids_starting_y_position_range) for x in range(number_of_boids)]
@@ -83,7 +86,7 @@ def update_boids(boids):
 		boid['xposition']=change_in_position(boid['xposition'],boid['xvelocity'])
 		boid['yposition']=change_in_position(boid['yposition'],boid['yvelocity'])
 
-print update_boids(boids)
+
 figure=plt.figure()
 axes=plt.axes(xlim=(-500,1500), ylim=(-500,1500))
 
