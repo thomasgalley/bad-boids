@@ -32,42 +32,19 @@ for i in range(number_of_boids):
 
 
 
-def velocity_change(velocity1,parameter1,parameter2,change_magnitude):
-   velocitynew=velocity1+(parameter2-parameter1)*change_magnitude
-   return velocitynew
 
-def position_difference_test(position_x1,position_x2,position_y1,position_y2,threshold):
-   if (position_x2-position_x1)**2 + (position_y2-position_y1)**2 < threshold:
-      return True
 
-def change_in_position(position,velocity,time_increment=1):
-   new_position=position+velocity*time_increment
-   return new_position
-
-#def velocity_change_x(boids,change_magnitude):
-   for boid['xposition'] in boids['xposition']:
-      boids['xvelocity']=boids['xveloctiy']+(boid['xposition']-boids['xposition'])*change_magnitude
-   return boids['xvelocity']
-
-#for boid in boids: 
- #  print boids
 
 
     
 
 def update_boids(boids):
-	#boids['xposition'],boids['yposition'],boids['xvelocity'],boids['yvelocity']=boids
-        
-        #boids= numpy.array((number_of_boids),dtype=[('xposition','f8'),('yposition','f8'),('xvelocity','f8'),('yvelocity','f8')])
-        #for i in range(number_of_boids): 
-           #boids[i]=(boid['xposition'],boid['yposition'],boid['xvelocity'],boid['yvelocity'])
-        # Fly towards the middle
-        
+	       
         
 
         for boid in boids:
            for j in range(number_of_boids):
-              #boid['xvelocity']=velocity_change(boid['xvelocity'],boid['xposition'],boids['xposition'][j],0.01/number_of_boids)
+              boid['xvelocity']=velocity_change(boid['xvelocity'],boid['xposition'],boids['xposition'][j],0.01/number_of_boids)
               boid['yvelocity']=velocity_change(boid['yvelocity'],boid['yposition'],boids['yposition'][j],0.01/number_of_boids)
 	
 
