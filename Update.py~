@@ -1,0 +1,12 @@
+from Boid_flight import fly_to_middle, fly_away_from_boids, match_speed, move_boids
+
+def update_boids(boids,number_of_boids,attractionstrength,boidproximitythreshold,matchspeed_distance, matchspeed_strength):
+	       
+        
+        fly_to_middle(boids,attractionstrength/number_of_boids,number_of_boids)
+	
+        fly_away_from_boids(boids,number_of_boids,boidproximitythreshold,1)
+
+        match_speed(boids,number_of_boids,matchspeed_distance,matchspeed_strength/number_of_boids)
+	 
+        move_boids(boids)

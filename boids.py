@@ -8,18 +8,11 @@ from matplotlib import animation
 import random
 import numpy
 import yaml
-from Boid_differences import velocity_change, position_difference_test, change_in_position
+from parameters import*
+
+
 from Boid_flight import fly_to_middle, fly_away_from_boids, match_speed, move_boids
 
-config=yaml.load(open("config.yml")) 
-
-# Deliberately terrible code for teaching purposes
-
-number_of_boids=config['number_of_boids']
-boids_starting_x_position_range= config['boids_starting_x_position_range']
-boids_starting_y_position_range= config['boids_starting_y_position_range']
-boids_starting_x_velocity_range=config['boids_starting_x_velocity_range']
-boids_starting_y_velocity_range=config['boids_starting_y_velocity_range']
 
 boids_initial_x_positions=[random.uniform(*boids_starting_x_position_range) for x in range(number_of_boids)]
 boids_initial_y_positions=[random.uniform(*boids_starting_y_position_range) for x in range(number_of_boids)]
@@ -32,21 +25,14 @@ for i in range(number_of_boids):
    boids[i]=(boids_initial_x_positions[i],boids_initial_y_positions[i],boid_initial_x_velocities[i],boid_initial_y_velocities[i])
 
 
-
-
-
-
-
-    
-
 def update_boids(boids):
 	       
         
-        fly_to_middle(boids,0.01/number_of_boids,number_of_boids)
+        fly_to_middle(boids,attractionstrength/number_of_boids,number_of_boids)
 	
-        fly_away_from_boids(boids,number_of_boids,100,1)
+        fly_away_from_boids(boids,number_of_boids,boidproximitythreshold,1)
 
-        match_speed(boids,number_of_boids,10000,0.125/number_of_boids)
+        match_speed(boids,number_of_boids,matchspeed_distance,matchspeed_strength/number_of_boids)
 	 
         move_boids(boids)
 			

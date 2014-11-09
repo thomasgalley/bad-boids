@@ -23,7 +23,7 @@ def match_speed(boids,number_of_boids,threshold1,threshold2):
 	       boid['yvelocity']=velocity_change(boid['yvelocity'],boid['yvelocity'],boids['yvelocity'][j],threshold2)
 
 
-def move_boids(boids)
+def move_boids(boids):
    for boid in boids:
 		boid['xposition']=change_in_position(boid['xposition'],boid['xvelocity'])
 		boid['yposition']=change_in_position(boid['yposition'],boid['yvelocity'])
