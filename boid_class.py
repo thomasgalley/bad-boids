@@ -20,7 +20,7 @@ class boid(object):
         def random_boid(self):
             return boid(random.uniform(*boids_starting_x_position_range),random.uniform(*boids_starting_y_position_range),random.uniform(*boids_starting_x_velocity_range),random.uniform(*boids_starting_y_position_range))
         
-C=[boid(0,0,0,0).random_boid() for i in range (number_of_boids)]
+
 
 
 
@@ -32,46 +32,18 @@ class boids(object):
           self.boidproximitythreshold=boidproximitythreshold
           self.matchspeed_distance=matchspeed_distance
           self.matchspeed_strength=matchspeed_strength
-          self.boids= [0]*number_of_boids
+          self.boids= [boid(0,0,0,0)]*number_of_boids
 
        def initial_flock(self,number_of_boids):
            
            self.boids=([boid(0,0,0,0).random_boid() for i in range (number_of_boids)])
 
+       def fly_to_centre(self,number_of_boids):
+           for boid in self.boids:
+             for member in self.boids:
+                boid.xvelocity=velocity_change(boid.xvelocity,boid.xposition,member.xposition,self.attraction_strength/number_of_boids)
 
 
-
-
-"""
-
-B=boid(1,2,3,5)
-print B.xposition
-
-
-B=boid(1,2,3,5)
-C=B.random_boid()
-print C.xposition
-
-B=boid(1,2,3,5).random_boid()
-
-b = boids(1,2,3,4,50)
-b.initial_flock(50)
-print b.matchspeed_strength
-
-
-
-print boid(1,2,3,5).random_boid().xposition
-
-"""
-
-
-
-"""  
-        def velocity_change_1(self,boid1,magnitude):
-            return velocity_change(self.xvelocity,self.xposition,boid1.xposition,magnitude)
-
-        
-"""
 
             
       
