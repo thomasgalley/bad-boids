@@ -1,16 +1,8 @@
 import yaml
 import random
-config=yaml.load(open("config.yml")) 
 from Boid_differences import*
 import numpy
-
-
-number_of_boids=config['number_of_boids']
-boids_starting_x_position_range= config['boids_starting_x_position_range']
-boids_starting_y_position_range= config['boids_starting_y_position_range']
-boids_starting_x_velocity_range=config['boids_starting_x_velocity_range']
-boids_starting_y_velocity_range=config['boids_starting_y_velocity_range']
-
+from parameters import*
 class boid(object):
 	def __init__(self,xposition,yposition,xvelocity,yvelocity):
 	   self.xposition=xposition
