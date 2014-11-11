@@ -9,7 +9,7 @@ from matplotlib import animation
 import numpy
 
 from parameters import*
-import boid_class
+import boids
 
 flock=boids.boids(attraction_strength,boidproximitythreshold,matchspeed_distance,matchspeed_strength,number_of_boids)
 flock.initial_flock()
@@ -21,11 +21,11 @@ flock.initial_flock()
 figure=plt.figure()
 axes=plt.axes(xlim=(-500,1500), ylim=(-500,1500))
 
-scatter=axes.scatter([boid.xposition for boid in flock.boids],[boid.yposition for boid in flock.boids])
+scatter=axes.scatter([boid.position[0] for boid in flock.boids],[boid.position[1] for boid in flock.boids])
 
 def animate(frame):
    flock.update_boids()
-   scatter.set_offsets(zip([boid.xposition for boid in flock.boids],[boid.yposition for boid in flock.boids]))
+   scatter.set_offsets(zip([boid.position[0] for boid in flock.boids],[boid.position[1] for boid in flock.boids]))
 
 
 anim = animation.FuncAnimation(figure, animate,

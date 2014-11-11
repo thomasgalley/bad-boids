@@ -1,8 +1,10 @@
 import yaml
 import random
+
 from Boid_differences import*
 import numpy
 from parameters import*
+
 class boid(object):
 	def __init__(self,xposition,yposition,xvelocity,yvelocity):
 	   self.xposition=xposition
@@ -74,20 +76,6 @@ class boids(object):
                self.boids=[boid(data[0][i],data[1][i],data[2][i],data[3][i]) for i in range (self.number_of_boids)]
 
 
-
-
-
-
-
-
-
-
-            
-      
-
-   
-           
-           
 
 
 
