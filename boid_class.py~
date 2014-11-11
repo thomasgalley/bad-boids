@@ -4,6 +4,7 @@ config=yaml.load(open("config.yml"))
 from Boid_differences import*
 import numpy
 
+
 number_of_boids=config['number_of_boids']
 boids_starting_x_position_range= config['boids_starting_x_position_range']
 boids_starting_y_position_range= config['boids_starting_y_position_range']
@@ -18,7 +19,7 @@ class boid(object):
 	   self.yvelocity=yvelocity
        
         def random_boid(self):
-            return boid(random.uniform(*boids_starting_x_position_range),random.uniform(*boids_starting_y_position_range),random.uniform(*boids_starting_x_velocity_range),random.uniform(*boids_starting_y_position_range))
+            return boid(random.uniform(*boids_starting_x_position_range),random.uniform(*boids_starting_y_position_range),random.uniform(*boids_starting_x_velocity_range),random.uniform(*boids_starting_y_velocity_range))
         
 
 
@@ -50,6 +51,33 @@ class boids(object):
                         if position_difference_test(boid.xposition,member.xposition,boid.yposition,member.yposition,self.boidproximitythreshold):
 				boid.xvelocity=velocity_change(boid.xvelocity,boid.xposition,member.xposition,1)
 				boid.yvelocity=velocity_change(boid.yvelocity,boid.yposition,member.yposition,1)
+
+       def match_speed(self,number_of_boids):
+          for boid in self.boids:
+             for member in self.boids:
+	         if position_difference_test(boid.xposition,member.xposition,boid.yposition,member.yposition,self.matchspeed_distance):
+	              boid.xvelocity=velocity_change(boid.xvelocity,boid.xposition,member.xposition,self.matchspeed_strength)
+		      boid.yvelocity=velocity_change(boid.yvelocity,boid.yposition,member.yposition,self.matchspeed_strength)
+
+
+       def move_boids(self):
+           for boid in self.boids:
+		boid.xposition=change_in_position(boid.xposition,boid.xvelocity)
+		boid.yposition=change_in_position(boid.yposition,boid.yvelocity)
+
+       def update_boids(self,number_of_boids):
+	       
+        
+          self.fly_to_centre(number_of_boids)
+	
+          self.fly_away_from_boids(number_of_boids)
+
+          self.match_speed(number_of_boids)
+	 
+          self.move_boids()
+
+
+
 
 
 

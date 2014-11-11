@@ -9,44 +9,27 @@ from matplotlib import animation
 import numpy
 
 from parameters import*
+import boid_class
+
+flock=boid_class.boids(attraction_strength,boidproximitythreshold,matchspeed_distance,matchspeed_strength,number_of_boids)
+flock.initial_flock(number_of_boids)
 
 
-from Boid_flight import fly_to_middle, fly_away_from_boids, match_speed, move_boids
-
-
-
-
-boids = numpy.zeros((number_of_boids),dtype=[('xposition','f8'),('yposition','f8'),('xvelocity','f8'),('yvelocity','f8')])
-
-for i in range(number_of_boids):
-   boids[i]=(boids_initial_x_positions[i],boids_initial_y_positions[i],boid_initial_x_velocities[i],boid_initial_y_velocities[i])
-
-
-def update_boids(boids):
-	       
-        
-        fly_to_middle(boids,attractionstrength/number_of_boids,number_of_boids)
-	
-        fly_away_from_boids(boids,number_of_boids,boidproximitythreshold,1)
-
-        match_speed(boids,number_of_boids,matchspeed_distance,matchspeed_strength/number_of_boids)
-	 
-        move_boids(boids)
 			
 
 	
 figure=plt.figure()
 axes=plt.axes(xlim=(-500,1500), ylim=(-500,1500))
 
-scatter=axes.scatter(boids['xposition'],boids['yposition'])
+scatter=axes.scatter([boid.xposition for boid in flock.boids],[boid.yposition for boid in flock.boids])
 
 def animate(frame):
-   update_boids(boids)
-   scatter.set_offsets(zip(boids['xposition'],boids['yposition']))
+   flock.update_boids(number_of_boids)
+   scatter.set_offsets(zip([boid.xposition for boid in flock.boids],[boid.yposition for boid in flock.boids]))
 
 
 anim = animation.FuncAnimation(figure, animate,
-                               frames=50, interval=50)
+                               frames=200, interval=50)
 
 if __name__ == "__main__":
     plt.show()

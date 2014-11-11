@@ -1,6 +1,6 @@
 import random
 
-number_of_boids= 50
+number_of_boids= 400
 
 boids_starting_x_position_range= [-450,50.0]
 boids_starting_y_position_range= [300.0,600.0]

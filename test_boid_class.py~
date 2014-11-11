@@ -10,3 +10,7 @@ def test_initial_flock():
       assert_greater(boid.yposition, boids_starting_y_position_range[0])
       assert_greater(boid.xvelocity, boids_starting_x_velocity_range[0])
       assert_greater(boid.yvelocity, boids_starting_y_position_range[0])
+      assert_less(boid.xposition, boids_starting_x_position_range[1])
+      assert_less(boid.yposition, boids_starting_y_position_range[1])
+      assert_less(boid.xvelocity, boids_starting_x_velocity_range[1])
+      assert_less(boid.yvelocity, boids_starting_y_position_range[1])
