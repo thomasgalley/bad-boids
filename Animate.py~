@@ -9,7 +9,7 @@ from matplotlib import animation
 import numpy
 
 from parameters import*
-import boids
+import boid_class
 
 flock=boids.boids(attraction_strength,boidproximitythreshold,matchspeed_distance,matchspeed_strength,number_of_boids)
 flock.initial_flock()

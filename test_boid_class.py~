@@ -4,7 +4,7 @@ from nose.tools import*
 
 def test_initial_flock():
    flock=boid_class.boids(attraction_strength,boidproximitythreshold,matchspeed_distance,matchspeed_strength,number_of_boids)
-   flock.initial_flock(number_of_boids)
+   flock.initial_flock()
    for boid in flock.boids: 
       assert_greater(boid.xposition, boids_starting_x_position_range[0])
       assert_greater(boid.yposition, boids_starting_y_position_range[0])

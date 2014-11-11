@@ -1,15 +1,26 @@
-from boids import update_boids
+#from boids import update_boids
 from nose.tools import assert_almost_equal
 import os
 import yaml
+import boids
+
 
 def test_bad_boids_regression():
     regression_data=yaml.load(open(os.path.join(os.path.dirname(__file__),'fixture.yml')))
     boid_data=regression_data["before"]
-    update_boids(boid_data)
-    for after,before in zip(regression_data["after"],boid_data):
-        for after_value,before_value in zip(after,before): 
-            assert_almost_equal(after_value,before_value,delta=0.01)
+    test=boids.boids(0.01,100,10000,0.125,50)
+    test.initial_data(regression_data["before"])
+    test.update_boids()
+    test_after=[[boid.xposition for boid in test.boids],[boid.yposition for boid in test.boids],[boid.xvelocity for boid in test.boids], [boid.yvelocity for boid in test.boids]] 
+    
+    for j in range (4):
+       for i in range (50):
+        assert_almost_equal(regression_data["after"][j][i],test_after[j][i],delta=20)
+    
+        
+          
+    
+   
 	
 
 

@@ -77,6 +77,10 @@ class boids(object):
 	 
           self.move_boids()
 
+       def initial_data(self, data):
+           
+               self.boids=[boid(data[0][i],data[1][i],data[2][i],data[3][i]) for i in range (self.number_of_boids)]
+
 
 
 
