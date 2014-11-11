@@ -33,31 +33,32 @@ class boids(object):
           self.boidproximitythreshold=boidproximitythreshold
           self.matchspeed_distance=matchspeed_distance
           self.matchspeed_strength=matchspeed_strength
+          self.number_of_boids=number_of_boids
           self.boids= [boid(0,0,0,0)]*number_of_boids
 
-       def initial_flock(self,number_of_boids):
+       def initial_flock(self):
            
-           self.boids=[boid(0,0,0,0).random_boid() for i in range (number_of_boids)]
+           self.boids=[boid(0,0,0,0).random_boid() for i in range (self.number_of_boids)]
 
-       def fly_to_centre(self,number_of_boids):
+       def fly_to_centre(self):
            for boid in self.boids:
              for member in self.boids:
-                boid.xvelocity=velocity_change(boid.xvelocity,boid.xposition,member.xposition,self.attraction_strength/number_of_boids)
-                boid.yvelocity=velocity_change(boid.yvelocity,boid.yposition,member.yposition,self.attraction_strength/number_of_boids)
+                boid.xvelocity=velocity_change(boid.xvelocity,boid.xposition,member.xposition,self.attraction_strength/self.number_of_boids)
+                boid.yvelocity=velocity_change(boid.yvelocity,boid.yposition,member.yposition,self.attraction_strength/self.number_of_boids)
 
-       def fly_away_from_boids(self,number_of_boids):
+       def fly_away_from_boids(self):
         for boid in self.boids:
            for member in self.boids:
                         if position_difference_test(boid.xposition,member.xposition,boid.yposition,member.yposition,self.boidproximitythreshold):
 				boid.xvelocity=velocity_change(boid.xvelocity,boid.xposition,member.xposition,1)
 				boid.yvelocity=velocity_change(boid.yvelocity,boid.yposition,member.yposition,1)
 
-       def match_speed(self,number_of_boids):
+       def match_speed(self):
           for boid in self.boids:
              for member in self.boids:
 	         if position_difference_test(boid.xposition,member.xposition,boid.yposition,member.yposition,self.matchspeed_distance):
-	              boid.xvelocity=velocity_change(boid.xvelocity,boid.xposition,member.xposition,self.matchspeed_strength/number_of_boids)
-		      boid.yvelocity=velocity_change(boid.yvelocity,boid.yposition,member.yposition,self.matchspeed_strength/number_of_boids)
+	              boid.xvelocity=velocity_change(boid.xvelocity,boid.xposition,member.xposition,self.matchspeed_strength/self.number_of_boids)
+		      boid.yvelocity=velocity_change(boid.yvelocity,boid.yposition,member.yposition,self.matchspeed_strength/self.number_of_boids)
 
 
        def move_boids(self):
@@ -65,14 +66,14 @@ class boids(object):
 		boid.xposition=change_in_position(boid.xposition,boid.xvelocity)
 		boid.yposition=change_in_position(boid.yposition,boid.yvelocity)
 
-       def update_boids(self,number_of_boids):
+       def update_boids(self):
 	       
         
-          self.fly_to_centre(number_of_boids)
+          self.fly_to_centre()
 	
-          self.fly_away_from_boids(number_of_boids)
+          self.fly_away_from_boids()
 
-          self.match_speed(number_of_boids)
+          self.match_speed()
 	 
           self.move_boids()
 

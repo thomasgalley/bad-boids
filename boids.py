@@ -12,7 +12,7 @@ from parameters import*
 import boid_class
 
 flock=boid_class.boids(attraction_strength,boidproximitythreshold,matchspeed_distance,matchspeed_strength,number_of_boids)
-flock.initial_flock(number_of_boids)
+flock.initial_flock()
 
 
 			
@@ -24,7 +24,7 @@ axes=plt.axes(xlim=(-500,1500), ylim=(-500,1500))
 scatter=axes.scatter([boid.xposition for boid in flock.boids],[boid.yposition for boid in flock.boids])
 
 def animate(frame):
-   flock.update_boids(number_of_boids)
+   flock.update_boids()
    scatter.set_offsets(zip([boid.xposition for boid in flock.boids],[boid.yposition for boid in flock.boids]))
 
 
